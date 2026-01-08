@@ -1,12 +1,19 @@
 public class BankAccount {
+    private String accountHolder;
     private double balance;
-    private String name;
+    private int pin; // NEW: account PIN
 
-//constructor
-public BankAccount(String name, double balance ) {
-    this.balance = balance;
-    this.name = name;
-}
+    // Updated constructor
+    public BankAccount(String accountHolder, double balance, int pin) {
+        this.accountHolder = accountHolder;
+        this.balance = balance;
+        this.pin = pin;
+    }
+
+    // NEW: Verify PIN
+    public boolean verifyPin(int enteredPin) {
+        return this.pin == enteredPin;
+    }
 
 //deposit method
 public void deposit(double amount) {
@@ -29,12 +36,14 @@ public void withdraw(double amount) {
     }
 }
 
+// returns the balance of the account
 public double getBalance() {
         return balance;
     }
 
+// returns the name of the account holder
     public String getAccountHolder() {
-        return name;
+        return accountHolder;
     }
 }
 

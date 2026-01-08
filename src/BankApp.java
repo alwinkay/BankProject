@@ -16,11 +16,39 @@ public class BankApp {
         System.out.print("Enter account holder name: ");
         String name = scanner.nextLine();
 
-        // Create a BankAccount object with initial balance of 0.0
-        BankAccount account = new BankAccount(name, 0.0);
+        // Asks the user to create a pin
+        System.out.print("Create a 4-digit PIN: ");
+        int pin = readInt(scanner);
+
+        // creating BankAccount object
+        BankAccount account = new BankAccount(name, 0.0, pin);
 
         // Variable to store user's menu choice
         int choice;
+
+        // login attempts
+        int attempts = 0;
+        boolean authenticated = false;
+
+        while (attempts < 3) {
+            System.out.print("Enter your PIN: ");
+            int enteredPin = readInt(scanner);
+
+            if (account.verifyPin(enteredPin)) {
+                authenticated = true;
+                break;
+            } else {
+                attempts++;
+                System.out.println("Incorrect PIN. Attempts left: " + (3 - attempts));
+            }
+        }
+
+        if (!authenticated) {
+            System.out.println("Account locked. Too many failed attempts.");
+            scanner.close();
+            return;
+        }
+
 
         // Loop keeps running until user chooses to exit
         do {
@@ -100,3 +128,5 @@ public class BankApp {
         return value;
     }
 }
+
+
